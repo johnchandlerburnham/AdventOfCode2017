@@ -42,7 +42,14 @@ memoryVal 0 = 0
 memoryVal 1 = 1
 memoryVal n = foldl (+) 0 (memoryVal <$> adjPrevSquares n)
 
+memoryVal' :: Int -> Integer
+memoryVal' = (map memV [1..] !!)
+  where
+    memV 0 = 0
+    memV 1 = 1
+    memV n = foldl (+) 0 (memoryVal' <$> (fromIntegral <$> adjPrevSquares n))
+
 result :: Maybe Integer
-result = find (\x -> memoryVal x > 265149) [1..]
+result = find (\x -> x > 265149) (memoryVal <$> [1..])
 
 
